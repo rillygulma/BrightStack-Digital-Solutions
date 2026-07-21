@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { MessageCircle, X } from "lucide-react";
+import { MessageCircle, X, Sparkles } from "lucide-react";
 import ChatWindow from "./ChatWindow";
 
 export default function ChatWidget() {
@@ -9,6 +9,7 @@ export default function ChatWidget() {
 
   return (
     <>
+      {/* Chat Window */}
       {open && (
         <div
           className="
@@ -25,8 +26,63 @@ export default function ChatWidget() {
         </div>
       )}
 
+      {/* Chat Indicator */}
+      {!open && (
+        <div
+          className="
+            fixed
+            bottom-[92px]
+            right-6
+            z-[999]
+            flex
+            items-center
+            gap-2
+            rounded-xl
+            bg-white
+            px-4
+            py-2.5
+            text-sm
+            font-semibold
+            text-slate-800
+            shadow-lg
+            border
+            border-orange-100
+            animate-bounce
+          "
+        >
+          <Sparkles
+            size={17}
+            className="text-orange-500"
+          />
+
+          <span>Chat with BrightStack AI</span>
+
+          {/* Small Arrow */}
+          <div
+            className="
+              absolute
+              -bottom-2
+              right-6
+              h-4
+              w-4
+              rotate-45
+              border-r
+              border-b
+              border-orange-100
+              bg-white
+            "
+          />
+        </div>
+      )}
+
+      {/* Floating Chat Button */}
       <button
         onClick={() => setOpen(!open)}
+        aria-label={
+          open
+            ? "Close BrightStack AI Chat"
+            : "Chat with BrightStack AI"
+        }
         className="
           fixed
           bottom-6
@@ -38,14 +94,25 @@ export default function ChatWidget() {
           items-center
           justify-center
           rounded-full
-          bg-orange-500
+          bg-gradient-to-r
+          from-orange-500
+          to-orange-600
           text-white
           shadow-2xl
-          transition
+          transition-all
+          duration-300
           hover:scale-110
+          hover:shadow-orange-500/40
+          focus:outline-none
+          focus:ring-4
+          focus:ring-orange-200
         "
       >
-        {open ? <X size={28} /> : <MessageCircle size={28} />}
+        {open ? (
+          <X size={28} />
+        ) : (
+          <MessageCircle size={28} />
+        )}
       </button>
     </>
   );
